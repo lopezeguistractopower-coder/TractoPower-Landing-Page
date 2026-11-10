@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracto Power | Soluciones de Maquinaria Pesada</title>
+    <link rel="icon" type="image/svg+xml" href="TRACTOPOWERSVG/favicon.svg?v=2">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#FF5722',
+                            yellow: '#FFC107',
+                            dark: '#0F1115',
+                            card: '#161920',
+                            accent: '#1E232D',
+                            border: '#2A303C',
+                            lightText: '#94A3B8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        tech: ['Chakra Petch', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0F1115;
+            color: #F8FAFC;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .font-tech { font-family: 'Chakra Petch', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .hero-machine-stage { perspective: 1400px; }
+        .hero-machine-slide { transform-style: preserve-3d; backface-visibility: hidden; }
+
+        /* Grid Pattern overlay */
+        .bg-tech-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+
+        .glow-orange {
+            box-shadow: 0 0 25px -5px rgba(255, 87, 34, 0.4);
+        }
+        .glow-yellow {
+            box-shadow: 0 0 25px -5px rgba(255, 193, 7, 0.3);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F1115;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A303C;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF5722;
+        }
+    </style>
+</head>
+<body class="bg-tech-grid min-h-screen selection:bg-brand-orange selection:text-white">
+
+    <!-- NAV BAR -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-brand-dark/90 backdrop-blur-md border-b border-brand-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex h-20 w-24 shrink-0 items-center group" aria-label="Tracto Power, Soluciones de Maquinaria Pesada">
+                <img src="TRACTOPOWERSVG/TRACTOPOWER%20LOGO%202.svg" alt="" class="h-full w-full object-contain transition-transform duration-200 group-hover:scale-105" decoding="async">
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center space-x-8 font-tech text-sm font-semibold tracking-wide">
+                <a href="#catalogo" class="hover:text-brand-orange transition-colors">Catálogo</a>
+                <a href="#especificaciones" class="hover:text-brand-orange transition-colors">Telemetría y Specs</a>
+                <a href="#calculadora" class="hover:text-brand-orange transition-colors">Cotizador</a>
+                <a href="#nosotros" class="hover:text-brand-orange transition-colors">Ventajas</a>
+                <a href="#contacto" class="hover:text-brand-orange transition-colors">Ubicación</a>
+            </div>
+
+            <!-- CTA Call -->
+            <div class="hidden lg:flex items-center gap-4">
+                <a href="tel:04249578682" class="flex items-center gap-2 text-xs font-mono text-brand-lightText hover:text-white transition-colors">
+                    <i data-lucide="phone-call" class="w-4 h-4 text-brand-yellow"></i>
+                    <span>0424-9578682</span>
+                </a>
+                <a href="#cotizar" class="bg-brand-orange hover:bg-orange-600 text-white px-5 py-2.5 rounded-lg font-tech font-bold text-sm tracking-wider uppercase transition-all glow-orange flex items-center gap-2">
+                    <span>Cotizar Ahora</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white focus:outline-none">
+                <i data-lucide="menu" class="w-7 h-7"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-card border-b border-brand-border px-4 pt-3 pb-6 space-y-3 font-tech">
+            <a href="#catalogo" class="block text-gray-300 hover:text-brand-orange py-2">Catálogo de Equipos</a>
+            <a href="#especificaciones" class="block text-gray-300 hover:text-brand-orange py-2">Especificaciones</a>
+            <a href="#calculadora" class="block text-gray-300 hover:text-brand-orange py-2">Calculadora de Cotización</a>
+            <a href="#nosotros" class="block text-gray-300 hover:text-brand-orange py-2">Ventajas Técnicas</a>
+            <a href="#contacto" class="block text-gray-300 hover:text-brand-orange py-2">Contacto y Ubicación</a>
+            <a href="#cotizar" class="block bg-brand-orange text-center py-3 rounded-lg font-bold uppercase text-white mt-4">Solicitar Cotización</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden border-b border-brand-border/50">
+        <!-- Background Ambient Glow -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-brand-orange/15 blur-[120px] rounded-full pointer-events-none"></div>
+        <div class="absolute top-1/3 right-10 w-[300px] h-[300px] bg-brand-yellow/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Text Column -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-accent border border-brand-border text-brand-yellow font-mono text-xs tracking-wider uppercase">
+                        <span class="w-2 h-2 rounded-full bg-brand-yellow animate-ping"></span>
+                        <span>Catálogo Oficial Tracto Power</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-tech font-bold uppercase leading-tight tracking-wide">
+                        El futuro de la construcción <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange via-yellow-400 to-brand-yellow">se edifica con calidad</span>
+                    </h1>
+
+                    <p class="text-brand-lightText text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed font-sans">
+                        Potencia industrial, ingeniería de alto torque y durabilidad garantizada para proyectos de gran escala. Distribuidores oficiales de cargadoras de ruedas, excavadoras, retroexcavadoras y montacargas.
+                    </p>
+
+                    <!-- Key Spec Grid Summary -->
+                    <div class="grid grid-cols-3 gap-4 pt-4 border-t border-brand-border/60 max-w-lg mx-auto lg:mx-0">
+                        <div class="bg-brand-card/70 p-3 rounded-lg border border-brand-border/40 text-center lg:text-left">
+                            <span class="block font-mono text-xs text-brand-lightText uppercase">Carga Máxima</span>
+                            <span class="inline-flex flex-col font-tech text-lg sm:text-xl leading-tight font-bold text-white">
+                                <span class="whitespace-nowrap">23.000</span>
+                                <span class="whitespace-nowrap text-brand-orange font-mono">KG</span>
+                            </span>
+                        </div>
+                        <div class="bg-brand-card/70 p-3 rounded-lg border border-brand-border/40 text-center lg:text-left">
+                            <span class="block font-mono text-xs text-brand-lightText uppercase">Motorización</span>
+                            <span class="inline-flex flex-col font-tech text-lg sm:text-xl leading-tight font-bold text-white">
+                                <span class="whitespace-nowrap">CUMMINS</span>
+                                <span class="whitespace-nowrap text-brand-yellow font-mono">WEICHAI</span>
+                            </span>
+                        </div>
+                        <div class="bg-brand-card/70 p-3 rounded-lg border border-brand-border/40 text-center lg:text-left">
+                            <span class="block font-mono text-xs text-brand-lightText uppercase">Garantía Ops</span>
+                            <span class="inline-flex flex-col font-tech text-lg sm:text-xl leading-tight font-bold text-white">
+                                <span class="whitespace-nowrap">100%</span>
+                                <span class="whitespace-nowrap text-green-400 font-mono">RESPALDO</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                        <a href="#catalogo" class="bg-brand-orange hover:bg-orange-600 text-white px-8 py-4 rounded-xl font-tech font-bold text-base tracking-wider uppercase transition-all glow-orange flex items-center justify-center gap-3">
+                            <i data-lucide="truck" class="w-5 h-5"></i>
+                            <span>Explorar Equipos</span>
+                        </a>
+                        <a href="#contacto" class="bg-brand-card hover:bg-brand-accent border border-brand-border text-white px-8 py-4 rounded-xl font-tech font-semibold text-base tracking-wider uppercase transition-all flex items-center justify-center gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-brand-yellow"></i>
+                            <span>Sede Maturín</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Visual Column (Featured Machine Telemetry Banner) -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative bg-brand-card border border-brand-border rounded-2xl p-6 glow-orange overflow-hidden group">
+                        <!-- Machine Badge with Official Logo Icon -->
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="flex h-20 w-24 shrink-0 items-center justify-center rounded-lg border border-brand-border bg-brand-dark p-0.5">
+                                    <img src="TRACTOPOWERSVG/TRACTOPOWER%20LOGO%202.svg" alt="Tracto Power" class="h-full w-full object-contain" decoding="async">
+                                </div>
+                                <div>
+                                    <span class="text-xs font-mono text-brand-orange uppercase tracking-widest block">Modelo Destacado</span>
+                                    <h3 id="featured-machine-title" class="font-tech text-2xl font-bold text-white">LT956 CARGADORA DE RUEDAS</h3>
+                                </div>
+                            </div>
+                            <span class="bg-green-500/10 text-green-400 border border-green-500/30 text-xs px-2.5 py-1 rounded font-mono">DISPONIBLE</span>
+                        </div>
+
+                        <div id="machine-carousel" class="relative h-64 bg-brand-dark/80 rounded-xl border border-brand-border/60 my-4 overflow-hidden" role="region" aria-roledescription="carrusel" aria-label="Maquinaria destacada">
+                            <img src="images/machine_lt956.jpg" alt="Cargadora de ruedas Tracto Power LT956" class="machine-carousel-slide absolute inset-0 z-10 h-full w-full object-cover opacity-100 scale-100 transition-all duration-700 ease-in-out motion-reduce:transition-none" fetchpriority="high">
+                            <img src="images/machine_lte230.jpg" alt="Excavadora de orugas Tracto Power LTE230" class="machine-carousel-slide absolute inset-0 h-full w-full object-cover opacity-0 scale-105 transition-all duration-700 ease-in-out motion-reduce:transition-none" aria-hidden="true">
+                            <img src="images/machine_lt936.jpg" alt="Cargadora de ruedas Tracto Power LT936" class="machine-carousel-slide absolute inset-0 h-full w-full object-cover opacity-0 scale-105 transition-all duration-700 ease-in-out motion-reduce:transition-none" aria-hidden="true">
+                            <img src="images/machine_blt388.jpg" alt="Retroexcavadora Tracto Power BLT388" class="machine-carousel-slide absolute inset-0 h-full w-full object-cover opacity-0 scale-105 transition-all duration-700 ease-in-out motion-reduce:transition-none" aria-hidden="true">
+                            <img src="images/machine_ltr100.jpg" alt="Montacargas todoterreno Tracto Power LTR100" class="machine-carousel-slide absolute inset-0 h-full w-full object-cover opacity-0 scale-105 transition-all duration-700 ease-in-out motion-reduce:transition-none" aria-hidden="true">
+                            <img src="images/machine_fd38.jpg" alt="Carretilla elevadora diésel Tracto Power FD38" class="machine-carousel-slide absolute inset-0 h-full w-full object-cover opacity-0 scale-105 transition-all duration-700 ease-in-out motion-reduce:transition-none" aria-hidden="true">
+                            <button type="button" class="machine-carousel-control absolute left-3 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/30 bg-brand-dark/80 p-2 text-white transition-colors hover:bg-brand-orange focus:outline-none focus:ring-2 focus:ring-brand-yellow" aria-label="Máquina anterior">
+                                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+                            </button>
+                            <button type="button" class="machine-carousel-control absolute right-3 top-1/2 z-20 -translate-y-1/2 rounded-full border border-white/30 bg-brand-dark/80 p-2 text-white transition-colors hover:bg-brand-orange focus:outline-none focus:ring-2 focus:ring-brand-yellow" aria-label="Máquina siguiente">
+                                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                            </button>
+                            <div class="absolute bottom-2 left-3 right-3 z-20 flex items-center justify-between gap-2">
+                                <div class="flex gap-1.5" aria-label="Seleccionar máquina">
+                                    <button type="button" class="machine-carousel-indicator h-2.5 w-2.5 rounded-full bg-white transition-all focus:outline-none focus:ring-2 focus:ring-brand-yellow" aria-label="Mostrar LT956" aria-current="true"></button>
+                                    <button type="button" class="machine-carousel-indicator h-2.5 w-2.5 rounded-full bg-white/50 transition-all focus:outline-none focus:ring-2 focus:ring-brand-yellow" aria-label="Mostrar LTE230"></button>
+                                    <button type="button" class="machine-carousel-indicator h-2.5 w-2.5 rounded-full bg-white/50 transition-all focus:outline-none focus:ring-2 focus:ring-brand-yellow" aria-label="Mostrar LT936"></button>
+                                    <button type="button" class="machine-carousel-indicator h-2.5 w-2.5 rounded-full bg-white/50 transition-all focus:outline-none focus:ring-2 focus:ring-brand-yellow" aria-label="Mostrar BLT388"></button>
+                                    <button type="button" class="machine-carousel-indicator h-2.5 w-2.5 rounded-full bg-white/50 transition-all focus:outline-none focus:ring-2 focus:ring-brand-yellow" aria-label="Mostrar LTR100"></button>
+                                    <button type="button" class="machine-carousel-indicator h-2.5 w-2.5 rounded-full bg-white/50 transition-all focus:outline-none focus:ring-2 focus:ring-brand-yellow" aria-label="Mostrar FD38"></button>
+                                </div>
+                                <div class="flex justify-between gap-3 rounded border border-brand-border/40 bg-brand-dark/90 px-3 py-1.5 font-mono text-[11px] text-brand-lightText">
+                                    <span id="featured-machine-weight">Peso: 16.500 KG</span>
+                                    <span id="featured-machine-engine">Cubo: 3,0 m³</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Live Telemetry Specs -->
+                        <div class="grid grid-cols-2 gap-3 text-xs font-mono">
+                            <div class="p-2.5 bg-brand-accent/60 rounded border border-brand-border/40">
+                                <span id="featured-machine-detail-label-1" class="text-brand-lightText block">Altura Máx. Descarga:</span>
+                                <span id="featured-machine-detail-1" class="text-white font-bold text-sm">3.200 mm</span>
+                            </div>
+                            <div class="p-2.5 bg-brand-accent/60 rounded border border-brand-border/40">
+                                <span id="featured-machine-detail-label-2" class="text-brand-lightText block">Fuerza Excavación:</span>
+                                <span id="featured-machine-detail-2" class="text-brand-yellow font-bold text-sm">155 kN</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-4">
+                <div class="mb-4 text-center">
+                    <span class="text-brand-orange font-mono text-xs uppercase tracking-[0.3em]">Nuestra flota</span>
+                    <h2 class="mt-2 font-tech text-2xl sm:text-3xl font-bold uppercase tracking-wide">Equipos listos para trabajar</h2>
+                </div>
+                <div id="hero-machine-carousel" class="hero-machine-stage relative h-64 sm:h-80 lg:h-[22rem] overflow-hidden" role="region" aria-roledescription="carrusel" aria-label="Galería de maquinaria" tabindex="0">
+                    <a href="#catalogo" class="hero-machine-slide group absolute left-1/2 top-0 h-full w-[74%] sm:w-[42%] lg:w-[31%] overflow-hidden rounded-xl border border-brand-border bg-brand-card shadow-2xl transition-[transform,opacity,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none" data-model="Cargadora LT956" aria-label="Ver Cargadora LT956 en el catálogo">
+                        <img src="images/machine_lt956.jpg" alt="Cargadora de ruedas LT956" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" fetchpriority="high">
+                        <span class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-brand-dark/10"></span>
+                        <span class="absolute bottom-4 left-4 right-4 font-tech text-lg font-bold uppercase text-white sm:text-xl">Cargadora LT956</span>
+                    </a>
+                    <a href="#catalogo" class="hero-machine-slide group absolute left-1/2 top-0 h-full w-[74%] sm:w-[42%] lg:w-[31%] overflow-hidden rounded-xl border border-brand-border bg-brand-card shadow-2xl transition-[transform,opacity,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none" data-model="Excavadora LTE230" aria-label="Ver Excavadora LTE230 en el catálogo" aria-hidden="true">
+                        <img src="images/machine_lte230.jpg" alt="Excavadora de orugas LTE230" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async">
+                        <span class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-brand-dark/10"></span>
+                        <span class="absolute bottom-4 left-4 right-4 font-tech text-lg font-bold uppercase text-white sm:text-xl">Excavadora LTE230</span>
+                    </a>
+                    <a href="#catalogo" class="hero-machine-slide group absolute left-1/2 top-0 h-full w-[74%] sm:w-[42%] lg:w-[31%] overflow-hidden rounded-xl border border-brand-border bg-brand-card shadow-2xl transition-[transform,opacity,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none" data-model="Cargadora LT936" aria-label="Ver Cargadora LT936 en el catálogo" aria-hidden="true">
+                        <img src="images/machine_lt936.jpg" alt="Cargadora de ruedas LT936" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async">
+                        <span class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-brand-dark/10"></span>
+                        <span class="absolute bottom-4 left-4 right-4 font-tech text-lg font-bold uppercase text-white sm:text-xl">Cargadora LT936</span>
+                    </a>
+                    <a href="#catalogo" class="hero-machine-slide group absolute left-1/2 top-0 h-full w-[74%] sm:w-[42%] lg:w-[31%] overflow-hidden rounded-xl border border-brand-border bg-brand-card shadow-2xl transition-[transform,opacity,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none" data-model="Retroexcavadora BLT388" aria-label="Ver Retroexcavadora BLT388 en el catálogo" aria-hidden="true">
+                        <img src="images/machine_blt388.jpg" alt="Retroexcavadora BLT388" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async">
+                        <span class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-brand-dark/10"></span>
+                        <span class="absolute bottom-4 left-4 right-4 font-tech text-lg font-bold uppercase text-white sm:text-xl">Retroexcavadora BLT388</span>
+                    </a>
+                    <a href="#catalogo" class="hero-machine-slide group absolute left-1/2 top-0 h-full w-[74%] sm:w-[42%] lg:w-[31%] overflow-hidden rounded-xl border border-brand-border bg-brand-card shadow-2xl transition-[transform,opacity,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none" data-model="Montacargas LTR100" aria-label="Ver Montacargas LTR100 en el catálogo" aria-hidden="true">
+                        <img src="images/machine_ltr100.jpg" alt="Montacargas todoterreno LTR100" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async">
+                        <span class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-brand-dark/10"></span>
+                        <span class="absolute bottom-4 left-4 right-4 font-tech text-lg font-bold uppercase text-white sm:text-xl">Montacargas LTR100</span>
+                    </a>
+                    <a href="#catalogo" class="hero-machine-slide group absolute left-1/2 top-0 h-full w-[74%] sm:w-[42%] lg:w-[31%] overflow-hidden rounded-xl border border-brand-border bg-brand-card shadow-2xl transition-[transform,opacity,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none" data-model="Carretilla FD38" aria-label="Ver Carretilla FD38 en el catálogo" aria-hidden="true">
+                        <img src="images/machine_fd38.jpg" alt="Carretilla elevadora diésel FD38" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" decoding="async">
+                        <span class="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-transparent to-brand-dark/10"></span>
+                        <span class="absolute bottom-4 left-4 right-4 font-tech text-lg font-bold uppercase text-white sm:text-xl">Carretilla FD38</span>
+                    </a>
+                </div>
+                <div class="mt-6 flex items-center justify-center gap-4">
+                    <button id="hero-machine-prev" type="button" class="rounded-full border border-brand-lightText/50 p-2 text-white transition-colors hover:border-brand-orange hover:bg-brand-orange focus:outline-none focus:ring-2 focus:ring-brand-yellow" aria-label="Equipo anterior">
+                        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <div class="flex gap-2" aria-label="Seleccionar equipo">
+                        <button type="button" class="hero-machine-indicator h-2.5 w-2.5 rounded-full bg-white transition-all focus:outline-none focus:ring-2 focus:ring-brand-yellow" aria-label="Mostrar Cargadora LT956" aria-current="true"></button>
+                        <button type="button" class="hero-machine-indicator h-2.5 w-2.5 rounded-full bg-white/40 transition-all focus:outline-none focus:ring-2 focus:ring-brand-yellow" aria-label="Mostrar Excavadora LTE230"></button>
+                        <button type="button" class="hero-machine-indicator h-2.5 w-2.5 rounded-full bg-white/40 transition-all focus:outline-none focus:ring-2 focus:ring-brand-yellow" aria-label="Mostrar Cargadora LT936"></button>
+                        <button type="button" class="hero-machine-indicator h-2.5 w-2.5 rounded-full bg-white/40 transition-all focus:outline-none focus:ring-2 focus:ring-brand-yellow" aria-label="Mostrar Retroexcavadora BLT388"></button>
+                        <button type="button" class="hero-machine-indicator h-2.5 w-2.5 rounded-full bg-white/40 transition-all focus:outline-none focus:ring-2 focus:ring-brand-yellow" aria-label="Mostrar Montacargas LTR100"></button>
+                        <button type="button" class="hero-machine-indicator h-2.5 w-2.5 rounded-full bg-white/40 transition-all focus:outline-none focus:ring-2 focus:ring-brand-yellow" aria-label="Mostrar Carretilla FD38"></button>
+                    </div>
+                    <button id="hero-machine-next" type="button" class="rounded-full border border-brand-lightText/50 p-2 text-white transition-colors hover:border-brand-orange hover:bg-brand-orange focus:outline-none focus:ring-2 focus:ring-brand-yellow" aria-label="Equipo siguiente">
+                        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATALOG FILTERABLE SECTION -->
+    <section id="catalogo" class="py-20 border-b border-brand-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div>
+                    <div class="flex items-center gap-2 text-brand-orange font-mono text-xs uppercase tracking-widest mb-2">
+                        <i data-lucide="layers" class="w-4 h-4"></i>
+                        <span>Flotas e Inventario Técnico</span>
+                    </div>
+                    <h2 class="font-tech text-3xl sm:text-4xl font-bold uppercase tracking-wide">
+                        Catálogo de Maquinaria
+                    </h2>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="flex flex-wrap gap-2 font-tech text-xs uppercase">
+                    <button onclick="filterCatalog('all')" class="filter-btn active bg-brand-orange text-white px-4 py-2 rounded-lg font-bold transition-all" data-category="all">Todos</button>
+                    <button onclick="filterCatalog('cargadoras')" class="filter-btn bg-brand-card hover:bg-brand-accent text-gray-300 border border-brand-border px-4 py-2 rounded-lg font-bold transition-all" data-category="cargadoras">Payloaders</button>
+                    <button onclick="filterCatalog('excavadoras')" class="filter-btn bg-brand-card hover:bg-brand-accent text-gray-300 border border-brand-border px-4 py-2 rounded-lg font-bold transition-all" data-category="excavadoras">Excavadoras</button>
+                    <button onclick="filterCatalog('retro')" class="filter-btn bg-brand-card hover:bg-brand-accent text-gray-300 border border-brand-border px-4 py-2 rounded-lg font-bold transition-all" data-category="retro">Retroexcavadoras</button>
+                    <button onclick="filterCatalog('montacargas')" class="filter-btn bg-brand-card hover:bg-brand-accent text-gray-300 border border-brand-border px-4 py-2 rounded-lg font-bold transition-all" data-category="montacargas">Montacargas</button>
+                </div>
+            </div>
+
+            <!-- Product Cards Grid -->
+            <div id="catalog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- 1. Cargadora LT956 -->
+                <div class="catalog-card cargadoras bg-brand-card border border-brand-border rounded-xl p-6 flex flex-col justify-between hover:border-brand-orange transition-all duration-300 group">
+                    <div>
+                        <div class="mb-5 aspect-[4/3] overflow-hidden rounded-lg border border-brand-border/60 bg-brand-dark">
+                            <img src="images/machine_lt956.jpg" alt="Cargadora de ruedas Tracto Power LT956" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async">
+                        </div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-brand-orange/10 text-brand-orange border border-brand-orange/30 text-[11px] font-mono px-2.5 py-1 rounded">PAYLOADER</span>
+                            <span class="font-mono text-xs text-brand-lightText">MODELO LT956</span>
+                        </div>
+                        <h3 class="font-tech text-2xl font-bold mb-2 group-hover:text-brand-orange transition-colors">Cargadora LT956</h3>
+                        <p class="text-brand-lightText text-sm mb-4">Motor de alta velocidad con alto par y transmisión optimizada para trabajos de carga masiva.</p>
+                        
+                        <!-- Mini Specs -->
+                        <div class="space-y-2 font-mono text-xs mb-6 bg-brand-dark/60 p-3 rounded-lg border border-brand-border/40">
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Capacidad Nominal:</span>
+                                <span class="text-white font-bold">5.000 KG</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Capacidad Cubo:</span>
+                                <span class="text-white font-bold">3,0 m³</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Peso Operativo:</span>
+                                <span class="text-white font-bold">16.500 KG</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Altura Máx. Descarga:</span>
+                                <span class="text-brand-yellow font-bold">3.200 mm</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="openSpecModal('LT956')" class="w-full bg-brand-accent hover:bg-brand-orange text-white py-2.5 rounded-lg font-tech font-bold text-sm tracking-wider uppercase border border-brand-border hover:border-brand-orange transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="cpu" class="w-4 h-4"></i>
+                        <span>Ficha Técnica Completa</span>
+                    </button>
+                </div>
+
+                <!-- 2. Excavadora LTE230 -->
+                <div class="catalog-card excavadoras bg-brand-card border border-brand-border rounded-xl p-6 flex flex-col justify-between hover:border-brand-orange transition-all duration-300 group">
+                    <div>
+                        <div class="mb-5 aspect-[4/3] overflow-hidden rounded-lg border border-brand-border/60 bg-brand-dark">
+                            <img src="images/machine_lte230.jpg" alt="Excavadora de orugas Tracto Power LTE230" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async">
+                        </div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-brand-orange/10 text-brand-orange border border-brand-orange/30 text-[11px] font-mono px-2.5 py-1 rounded">EXCAVADORA DE ORUGAS</span>
+                            <span class="font-mono text-xs text-brand-lightText">MODELO LTE230</span>
+                        </div>
+                        <h3 class="font-tech text-2xl font-bold mb-2 group-hover:text-brand-orange transition-colors">Excavadora LTE230</h3>
+                        <p class="text-brand-lightText text-sm mb-4">Motor Cummins con doble filtro de combustible, visión panorámica y líneas hidráulicas extendidas.</p>
+                        
+                        <!-- Mini Specs -->
+                        <div class="space-y-2 font-mono text-xs mb-6 bg-brand-dark/60 p-3 rounded-lg border border-brand-border/40">
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Peso Operativo:</span>
+                                <span class="text-white font-bold">23.000 KG</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Motor:</span>
+                                <span class="text-white font-bold">Cummins 124KW</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Capacidad Cuchara:</span>
+                                <span class="text-white font-bold">1,1 m³</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Gradiabilidad:</span>
+                                <span class="text-brand-yellow font-bold">30°</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="openSpecModal('LTE230')" class="w-full bg-brand-accent hover:bg-brand-orange text-white py-2.5 rounded-lg font-tech font-bold text-sm tracking-wider uppercase border border-brand-border hover:border-brand-orange transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="cpu" class="w-4 h-4"></i>
+                        <span>Ficha Técnica Completa</span>
+                    </button>
+                </div>
+
+                <!-- 3. Cargadora LT936 -->
+                <div class="catalog-card cargadoras bg-brand-card border border-brand-border rounded-xl p-6 flex flex-col justify-between hover:border-brand-orange transition-all duration-300 group">
+                    <div>
+                        <div class="mb-5 aspect-[4/3] overflow-hidden rounded-lg border border-brand-border/60 bg-brand-dark">
+                            <img src="images/machine_lt936.jpg" alt="Cargadora de ruedas Tracto Power LT936" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async">
+                        </div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-brand-orange/10 text-brand-orange border border-brand-orange/30 text-[11px] font-mono px-2.5 py-1 rounded">PAYLOADER</span>
+                            <span class="font-mono text-xs text-brand-lightText">MODELO LT936</span>
+                        </div>
+                        <h3 class="font-tech text-2xl font-bold mb-2 group-hover:text-brand-orange transition-colors">Cargadora LT936</h3>
+                        <p class="text-brand-lightText text-sm mb-4">Sistema de fusión de bomba dual con maniobra piloto, motor Weichai y cabina ergonómica +20% espacio.</p>
+                        
+                        <!-- Mini Specs -->
+                        <div class="space-y-2 font-mono text-xs mb-6 bg-brand-dark/60 p-3 rounded-lg border border-brand-border/40">
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Carga Nominal:</span>
+                                <span class="text-white font-bold">3.000 KG</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Capacidad Cuchara:</span>
+                                <span class="text-white font-bold">1,8 m³</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Peso Operativo:</span>
+                                <span class="text-white font-bold">9.850 KG</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Motor:</span>
+                                <span class="text-brand-yellow font-bold">Weichai</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="openSpecModal('LT936')" class="w-full bg-brand-accent hover:bg-brand-orange text-white py-2.5 rounded-lg font-tech font-bold text-sm tracking-wider uppercase border border-brand-border hover:border-brand-orange transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="cpu" class="w-4 h-4"></i>
+                        <span>Ficha Técnica Completa</span>
+                    </button>
+                </div>
+
+                <!-- 4. Retroexcavadora BLT388 (Jumbo) -->
+                <div class="catalog-card retro bg-brand-card border border-brand-border rounded-xl p-6 flex flex-col justify-between hover:border-brand-orange transition-all duration-300 group">
+                    <div>
+                        <div class="mb-5 aspect-[4/3] overflow-hidden rounded-lg border border-brand-border/60 bg-brand-dark">
+                            <img src="images/machine_blt388.jpg" alt="Retroexcavadora Tracto Power BLT388" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async">
+                        </div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-brand-yellow/10 text-brand-yellow border border-brand-yellow/30 text-[11px] font-mono px-2.5 py-1 rounded">RETROEXCAVADORA (JUMBO)</span>
+                            <span class="font-mono text-xs text-brand-lightText">MODELO BLT388</span>
+                        </div>
+                        <h3 class="font-tech text-2xl font-bold mb-2 group-hover:text-brand-orange transition-colors">Retroexcavadora BLT388</h3>
+                        <p class="text-brand-lightText text-sm mb-4">Motor sobrealimentado, neumáticos todoterreno de baja presión con eje trasero oscilante.</p>
+                        
+                        <!-- Mini Specs -->
+                        <div class="space-y-2 font-mono text-xs mb-6 bg-brand-dark/60 p-3 rounded-lg border border-brand-border/40">
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Peso Operativo:</span>
+                                <span class="text-white font-bold">8.200 KG</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Capacidad Frontal:</span>
+                                <span class="text-white font-bold">1,0 m³</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Capacidad Retro:</span>
+                                <span class="text-white font-bold">0,3 m³</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Carga Nominal:</span>
+                                <span class="text-brand-yellow font-bold">2.500 KG</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="openSpecModal('BLT388')" class="w-full bg-brand-accent hover:bg-brand-orange text-white py-2.5 rounded-lg font-tech font-bold text-sm tracking-wider uppercase border border-brand-border hover:border-brand-orange transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="cpu" class="w-4 h-4"></i>
+                        <span>Ficha Técnica Completa</span>
+                    </button>
+                </div>
+
+                <!-- 5. Montacargas LTR100 -->
+                <div class="catalog-card montacargas bg-brand-card border border-brand-border rounded-xl p-6 flex flex-col justify-between hover:border-brand-orange transition-all duration-300 group">
+                    <div>
+                        <div class="mb-5 aspect-[4/3] overflow-hidden rounded-lg border border-brand-border/60 bg-brand-dark">
+                            <img src="images/machine_ltr100.jpg" alt="Montacargas todoterreno Tracto Power LTR100" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async">
+                        </div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-blue-500/10 text-blue-400 border border-blue-500/30 text-[11px] font-mono px-2.5 py-1 rounded">TERRENO DIFÍCIL</span>
+                            <span class="font-mono text-xs text-brand-lightText">MODELO LTR100</span>
+                        </div>
+                        <h3 class="font-tech text-2xl font-bold mb-2 group-hover:text-brand-orange transition-colors">Montacargas LTR100</h3>
+                        <p class="text-brand-lightText text-sm mb-4">Neumáticos ultra-anchos todoterreno, excelente tracción off-road y gran capacidad de elevación.</p>
+                        
+                        <!-- Mini Specs -->
+                        <div class="space-y-2 font-mono text-xs mb-6 bg-brand-dark/60 p-3 rounded-lg border border-brand-border/40">
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Carga Nominal:</span>
+                                <span class="text-white font-bold">10.000 KG</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Altura Elevación:</span>
+                                <span class="text-white font-bold">4.000 - 7.000 mm</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Centro de Carga:</span>
+                                <span class="text-white font-bold">500 mm</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Motorización:</span>
+                                <span class="text-brand-yellow font-bold">Diésel Alto Rendimiento</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="openSpecModal('LTR100')" class="w-full bg-brand-accent hover:bg-brand-orange text-white py-2.5 rounded-lg font-tech font-bold text-sm tracking-wider uppercase border border-brand-border hover:border-brand-orange transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="cpu" class="w-4 h-4"></i>
+                        <span>Ficha Técnica Completa</span>
+                    </button>
+                </div>
+
+                <!-- 6. Carretilla Elevadora FD38 -->
+                <div class="catalog-card montacargas bg-brand-card border border-brand-border rounded-xl p-6 flex flex-col justify-between hover:border-brand-orange transition-all duration-300 group">
+                    <div>
+                        <div class="mb-5 aspect-[4/3] overflow-hidden rounded-lg border border-brand-border/60 bg-brand-dark">
+                            <img src="images/machine_fd38.jpg" alt="Carretilla elevadora diésel Tracto Power FD38" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async">
+                        </div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-blue-500/10 text-blue-400 border border-blue-500/30 text-[11px] font-mono px-2.5 py-1 rounded">ELEVADORA DIÉSEL</span>
+                            <span class="font-mono text-xs text-brand-lightText">MODELO FD38</span>
+                        </div>
+                        <h3 class="font-tech text-2xl font-bold mb-2 group-hover:text-brand-orange transition-colors">Carretilla FD38</h3>
+                        <p class="text-brand-lightText text-sm mb-4">Sistema hidráulico sensible a la carga, canal independiente de aire de motor anti-polvo.</p>
+                        
+                        <!-- Mini Specs -->
+                        <div class="space-y-2 font-mono text-xs mb-6 bg-brand-dark/60 p-3 rounded-lg border border-brand-border/40">
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Carga Nominal:</span>
+                                <span class="text-white font-bold">3.800 KG</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Altura Elevación:</span>
+                                <span class="text-white font-bold">3.000 mm</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Radio de Giro:</span>
+                                <span class="text-white font-bold">2.570 mm</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-brand-lightText">Peso de Servicio:</span>
+                                <span class="text-brand-yellow font-bold">4.900 KG</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="openSpecModal('FD38')" class="w-full bg-brand-accent hover:bg-brand-orange text-white py-2.5 rounded-lg font-tech font-bold text-sm tracking-wider uppercase border border-brand-border hover:border-brand-orange transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="cpu" class="w-4 h-4"></i>
+                        <span>Ficha Técnica Completa</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE COMPARISON & TELEMETRY TOOL -->
+    <section id="especificaciones" class="py-20 bg-brand-card/40 border-b border-brand-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-orange/10 text-brand-orange font-mono text-xs uppercase mb-3">
+                    <i data-lucide="activity" class="w-4 h-4"></i>
+                    <span>Comparativa Técnica e Ingeniería</span>
+                </div>
+                <h2 class="font-tech text-3xl sm:text-4xl font-bold uppercase">Matriz de Especificaciones</h2>
+                <p class="text-brand-lightText text-sm mt-2">Selecciona un modelo para analizar sus parámetros de rendimiento hidráulico y mecánico.</p>
+            </div>
+
+            <!-- Interactive Selector Table -->
+            <div class="bg-brand-card border border-brand-border rounded-xl p-6 overflow-x-auto">
+                <div class="min-w-[600px]">
+                    <div class="grid grid-cols-5 gap-4 pb-4 border-b border-brand-border font-tech text-sm text-brand-lightText uppercase font-bold">
+                        <div>Modelo</div>
+                        <div>Categoría</div>
+                        <div>Capacidad Carga</div>
+                        <div>Motorización</div>
+                        <div>Peso Operativo</div>
+                    </div>
+
+                    <div class="divide-y divide-brand-border/40 font-mono text-xs">
+                        <div class="grid grid-cols-5 gap-4 py-3.5 items-center hover:bg-brand-accent/50 transition-colors px-2 rounded">
+                            <span class="font-bold text-brand-orange">LT956</span>
+                            <span class="text-gray-300">Cargadora de Ruedas</span>
+                            <span class="text-white">5.000 KG</span>
+                            <span class="text-gray-300">Alto Par / Transmisión Especial</span>
+                            <span class="text-brand-yellow font-bold">16.500 KG</span>
+                        </div>
+                        <div class="grid grid-cols-5 gap-4 py-3.5 items-center hover:bg-brand-accent/50 transition-colors px-2 rounded">
+                            <span class="font-bold text-brand-orange">LTE230</span>
+                            <span class="text-gray-300">Excavadora Orugas</span>
+                            <span class="text-white">1.1 m³ (Cubo)</span>
+                            <span class="text-gray-300">Cummins 124kW / 2050RPM</span>
+                            <span class="text-brand-yellow font-bold">23.000 KG</span>
+                        </div>
+                        <div class="grid grid-cols-5 gap-4 py-3.5 items-center hover:bg-brand-accent/50 transition-colors px-2 rounded">
+                            <span class="font-bold text-brand-orange">LT936</span>
+                            <span class="text-gray-300">Cargadora de Ruedas</span>
+                            <span class="text-white">3.000 KG</span>
+                            <span class="text-gray-300">Weichai / Bomba Dual</span>
+                            <span class="text-brand-yellow font-bold">9.850 KG</span>
+                        </div>
+                        <div class="grid grid-cols-5 gap-4 py-3.5 items-center hover:bg-brand-accent/50 transition-colors px-2 rounded">
+                            <span class="font-bold text-brand-orange">BLT388</span>
+                            <span class="text-gray-300">Retroexcavadora</span>
+                            <span class="text-white">2.500 KG</span>
+                            <span class="text-gray-300">Sobrealimentado Marca Líder</span>
+                            <span class="text-brand-yellow font-bold">8.200 KG</span>
+                        </div>
+                        <div class="grid grid-cols-5 gap-4 py-3.5 items-center hover:bg-brand-accent/50 transition-colors px-2 rounded">
+                            <span class="font-bold text-brand-orange">LTR100</span>
+                            <span class="text-gray-300">Montacargas Todoterreno</span>
+                            <span class="text-white">10.000 KG</span>
+                            <span class="text-gray-300">Diésel Alto Torque</span>
+                            <span class="text-brand-yellow font-bold">Mástil 4-7 Metros</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUOTE CALCULATOR / INTERACTIVE ESTIMATOR -->
+    <section id="calculadora" class="py-20 border-b border-brand-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Details -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-yellow/10 text-brand-yellow font-mono text-xs uppercase">
+                        <i data-lucide="calculator" class="w-4 h-4"></i>
+                        <span>Calculadora de Proyecto</span>
+                    </div>
+                    <h2 class="font-tech text-3xl sm:text-4xl font-bold uppercase">Estimador de Maquinaria</h2>
+                    <p class="text-brand-lightText text-sm leading-relaxed">
+                        Selecciona el tipo de equipo y la cantidad de unidades necesarias para tu obra en Estado Monagas o resto del país para generar una propuesta preliminar instantánea.
+                    </p>
+
+                    <div class="space-y-4 pt-4 font-mono text-xs">
+                        <div class="flex items-center gap-3 text-gray-300">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-orange"></i>
+                            <span>Soporte directo de repuestos y mantenimiento técnico</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-300">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-orange"></i>
+                            <span>Despacho directo desde nuestra sede en Maturín</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-300">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-brand-orange"></i>
+                            <span>Atención personalizada por asesores de maquinaria</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Form Box -->
+                <div class="lg:col-span-7 bg-brand-card border border-brand-border rounded-2xl p-6 sm:p-8 glow-yellow">
+                    <form id="calc-form" onsubmit="handleCalc(event)" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block font-tech text-xs uppercase text-brand-lightText mb-2">Selecciona el Equipo</label>
+                                <select id="calc-model" class="w-full bg-brand-dark border border-brand-border rounded-lg px-4 py-3 font-mono text-sm text-white focus:border-brand-orange outline-none">
+                                    <option value="LT956">Payloader LT956 (5.000 KG)</option>
+                                    <option value="LTE230">Excavadora LTE230 (23 Ton)</option>
+                                    <option value="LT936">Payloader LT936 (3.000 KG)</option>
+                                    <option value="BLT388">Retroexcavadora BLT388</option>
+                                    <option value="LTR100">Montacargas LTR100 (10 Ton)</option>
+                                    <option value="FD38">Montacargas FD38 (3.8 Ton)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block font-tech text-xs uppercase text-brand-lightText mb-2">Cantidad de Unidades</label>
+                                <input type="number" id="calc-qty" min="1" max="20" value="1" class="w-full bg-brand-dark border border-brand-border rounded-lg px-4 py-3 font-mono text-sm text-white focus:border-brand-orange outline-none">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block font-tech text-xs uppercase text-brand-lightText mb-2">Tipo de Proyecto / Aplicación</label>
+                            <select id="calc-type" class="w-full bg-brand-dark border border-brand-border rounded-lg px-4 py-3 font-mono text-sm text-white focus:border-brand-orange outline-none">
+                                <option value="Construcción">Construcción e Infraestructura</option>
+                                <option value="Minería">Minería y Canteras</option>
+                                <option value="Agroindustrial">Agroindustria y Terrenos</option>
+                                <option value="Logística">Logística y Puerto</option>
+                            </select>
+                        </div>
+
+                        <!-- Result Display Box -->
+                        <div id="calc-result" class="bg-brand-dark/90 border border-brand-border p-4 rounded-xl flex items-center justify-between">
+                            <div>
+                                <span class="block font-mono text-xs text-brand-lightText">Estimado de Capacidad Total:</span>
+                                <span id="calc-capacity" class="font-tech text-xl font-bold text-brand-yellow">5.000 KG Nominales</span>
+                            </div>
+                            <span class="bg-brand-orange/20 text-brand-orange font-mono text-xs px-3 py-1.5 rounded-full font-bold">Fase Preliminar</span>
+                        </div>
+
+                        <button type="submit" class="w-full bg-brand-orange hover:bg-orange-600 text-white py-4 rounded-xl font-tech font-bold text-sm tracking-wider uppercase transition-all glow-orange flex items-center justify-center gap-2">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                            <span>Enviar esta Solicitud a un Asesor</span>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TECHNICAL ADVANTAGES SECTION -->
+    <section id="nosotros" class="py-20 border-b border-brand-border bg-brand-card/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-orange font-mono text-xs uppercase tracking-widest">Ventajas Competitivas</span>
+                <h2 class="font-tech text-3xl sm:text-4xl font-bold uppercase mt-2">Tecnología e Ingeniería de Vanguardia</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Advantage 1 -->
+                <div class="bg-brand-card border border-brand-border rounded-xl p-6">
+                    <div class="w-12 h-12 bg-brand-orange/10 border border-brand-orange/30 rounded-lg flex items-center justify-center text-brand-orange mb-4">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-tech text-xl font-bold mb-2">Cabinas Confort Panorámicas</h3>
+                    <p class="text-brand-lightText text-sm leading-relaxed">
+                        Mayor espacio operacional (+20%), visibilidad ampliada de 360°, aislamiento acústico y reducción de vibración para turnos extensos.
+                    </p>
+                </div>
+
+                <!-- Advantage 2 -->
+                <div class="bg-brand-card border border-brand-border rounded-xl p-6">
+                    <div class="w-12 h-12 bg-brand-yellow/10 border border-brand-yellow/30 rounded-lg flex items-center justify-center text-brand-yellow mb-4">
+                        <i data-lucide="gauge" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-tech text-xl font-bold mb-2">Motores de Alto Torque</h3>
+                    <p class="text-brand-lightText text-sm leading-relaxed">
+                        Equipados con motores Cummins y Weichai de renombre internacional. Doble filtro de combustible que garantiza la pureza del sistema.
+                    </p>
+                </div>
+
+                <!-- Advantage 3 -->
+                <div class="bg-brand-card border border-brand-border rounded-xl p-6">
+                    <div class="w-12 h-12 bg-blue-500/10 border border-blue-500/30 rounded-lg flex items-center justify-center text-blue-400 mb-4">
+                        <i data-lucide="settings-2" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-tech text-xl font-bold mb-2">Sistemas Hidráulicos Avanzados</h3>
+                    <p class="text-brand-lightText text-sm leading-relaxed">
+                        Bomba dual sensible a la carga y maniobra piloto hidráulica para operaciones suaves, precisas y eficientes en consumo de diésel.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT & LOCATION SECTION -->
+    <section id="contacto" class="py-20 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Contact info -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-orange/10 text-brand-orange font-mono text-xs uppercase">
+                        <i data-lucide="map-pin" class="w-4 h-4"></i>
+                        <span>Sede Principal</span>
+                    </div>
+                    <h2 class="font-tech text-3xl sm:text-4xl font-bold uppercase">Contacto Directo</h2>
+                    <p class="text-brand-lightText text-sm leading-relaxed">
+                        Visita nuestras instalaciones en Maturín o contáctanos directamente para asesoría técnica en la adquisición de equipos pesados.
+                    </p>
+
+                    <div class="space-y-4 pt-4 font-mono text-sm">
+                        <div class="flex items-start gap-4 p-4 bg-brand-card border border-brand-border rounded-xl">
+                            <i data-lucide="phone" class="w-5 h-5 text-brand-orange mt-1"></i>
+                            <div>
+                                <span class="block text-xs text-brand-lightText uppercase">Teléfono de Contacto</span>
+                                <a href="tel:04249578682" class="text-white font-bold text-base hover:text-brand-orange transition-colors">0424-9578682</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 p-4 bg-brand-card border border-brand-border rounded-xl">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-brand-yellow mt-1"></i>
+                            <div>
+                                <span class="block text-xs text-brand-lightText uppercase">Ubicación de la Sede</span>
+                                <span class="text-white font-bold text-sm block">Av. Alirio Ugarte Pelayo, Local Nro S/N</span>
+                                <span class="text-brand-lightText text-xs">Maturín, Estado Monagas, Venezuela</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 p-4 bg-brand-card border border-brand-border rounded-xl">
+                            <i data-lucide="mail" class="w-5 h-5 text-brand-orange mt-1"></i>
+                            <div>
+                                <span class="block text-xs text-brand-lightText uppercase">Correo Electrónico</span>
+                                <a href="mailto:tractorpower.rrss@gmail.com" class="text-white font-bold text-sm hover:text-brand-orange transition-colors">tractorpower.rrss@gmail.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div id="cotizar" class="lg:col-span-7 bg-brand-card border border-brand-border rounded-2xl p-6 sm:p-8">
+                    <h3 class="font-tech text-2xl font-bold uppercase mb-6">Solicitar Cotización Formal</h3>
+                    
+                    <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block font-tech text-xs uppercase text-brand-lightText mb-1">Nombre Completo</label>
+                                <input type="text" required placeholder="Ej: Carlos Mendoza" class="w-full bg-brand-dark border border-brand-border rounded-lg px-4 py-3 font-mono text-sm text-white focus:border-brand-orange outline-none">
+                            </div>
+                            <div>
+                                <label class="block font-tech text-xs uppercase text-brand-lightText mb-1">Teléfono / WhatsApp</label>
+                                <input type="tel" required placeholder="Ej: 0414-1234567" class="w-full bg-brand-dark border border-brand-border rounded-lg px-4 py-3 font-mono text-sm text-white focus:border-brand-orange outline-none">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block font-tech text-xs uppercase text-brand-lightText mb-1">Empresa / Organización</label>
+                            <input type="text" placeholder="Nombre de la empresa o constructora" class="w-full bg-brand-dark border border-brand-border rounded-lg px-4 py-3 font-mono text-sm text-white focus:border-brand-orange outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block font-tech text-xs uppercase text-brand-lightText mb-1">Detalles de la Maquinaria Requerida</label>
+                            <textarea rows="4" required placeholder="Indica los modelos de interés (LT956, LTE230, BLT388...) y tiempo de ejecución del proyecto." class="w-full bg-brand-dark border border-brand-border rounded-lg px-4 py-3 font-mono text-sm text-white focus:border-brand-orange outline-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-brand-orange hover:bg-orange-600 text-white py-4 rounded-xl font-tech font-bold text-sm tracking-wider uppercase transition-all glow-orange flex items-center justify-center gap-2">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                            <span>Enviar Mensaje a Ventas</span>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-dark border-t border-brand-border py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <img src="TRACTOPOWERSVG/TRACTOPOWER%20LOGO%202.svg" alt="Tracto Power, Soluciones de Maquinaria Pesada" class="h-24 w-28 object-contain" loading="lazy" decoding="async">
+
+            <p class="font-mono text-xs text-brand-lightText text-center">
+                &copy; 2026 Tracto Power C.A. Soluciones de Maquinaria Pesada. Todos los derechos reservados.
+            </p>
+
+            <div class="font-mono text-xs text-brand-lightText">
+                Maturín, Estado Monagas
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL SPEC SHEET (DYNAMIC) -->
+    <div id="spec-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-brand-card border border-brand-border rounded-2xl max-w-2xl w-full p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeSpecModal()" class="absolute top-4 right-4 text-brand-lightText hover:text-white">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <div id="modal-content">
+                <!-- Injected via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT INTERACTION LOGIC -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        const heroMachineGallery = document.getElementById('hero-machine-carousel');
+        const heroMachineSlides = Array.from(heroMachineGallery.querySelectorAll('.hero-machine-slide'));
+        const heroMachineIndicators = Array.from(document.querySelectorAll('.hero-machine-indicator'));
+        let heroMachineIndex = 0;
+        let heroMachineTimer;
+
+        function showHeroMachine(index) {
+            heroMachineIndex = (index + heroMachineSlides.length) % heroMachineSlides.length;
+            const stageWidth = heroMachineGallery.clientWidth;
+            const slideWidth = heroMachineSlides[0].getBoundingClientRect().width;
+            const spacing = Math.max(slideWidth * 0.9, stageWidth * 0.32);
+
+            heroMachineSlides.forEach((slide, slideIndex) => {
+                let offset = (slideIndex - heroMachineIndex + heroMachineSlides.length) % heroMachineSlides.length;
+                if (offset > heroMachineSlides.length / 2) offset -= heroMachineSlides.length;
+
+                const distance = Math.abs(offset);
+                const isActive = distance === 0;
+                const isVisible = distance <= 2;
+                const scale = isActive ? 1 : distance === 1 ? 0.88 : 0.76;
+
+                slide.style.transform = `translateX(calc(-50% + ${offset * spacing}px)) rotateY(${offset * -18}deg) scale(${scale})`;
+                slide.style.opacity = isActive ? '1' : distance === 1 ? '0.78' : '0.38';
+                slide.style.filter = isActive ? 'none' : 'saturate(0.65)';
+                slide.style.zIndex = String(10 - distance);
+                slide.style.pointerEvents = isActive ? 'auto' : 'none';
+                slide.setAttribute('aria-hidden', String(!isActive));
+                slide.tabIndex = isActive ? 0 : -1;
+                if (!isVisible) slide.style.visibility = 'hidden';
+                else slide.style.visibility = 'visible';
+            });
+
+            heroMachineIndicators.forEach((indicator, indicatorIndex) => {
+                const isActive = indicatorIndex === heroMachineIndex;
+                indicator.classList.toggle('bg-white', isActive);
+                indicator.classList.toggle('bg-white/40', !isActive);
+                indicator.setAttribute('aria-current', String(isActive));
+            });
+        }
+
+        function startHeroMachineCarousel() {
+            window.clearInterval(heroMachineTimer);
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            heroMachineTimer = window.setInterval(() => {
+                const gallery = heroMachineGallery.parentElement;
+                if (!document.hidden && !gallery.matches(':hover') && !gallery.contains(document.activeElement)) {
+                    showHeroMachine(heroMachineIndex + 1);
+                }
+            }, 5000);
+        }
+
+        document.getElementById('hero-machine-prev').addEventListener('click', () => {
+            showHeroMachine(heroMachineIndex - 1);
+            startHeroMachineCarousel();
+        });
+        document.getElementById('hero-machine-next').addEventListener('click', () => {
+            showHeroMachine(heroMachineIndex + 1);
+            startHeroMachineCarousel();
+        });
+        heroMachineIndicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                showHeroMachine(index);
+                startHeroMachineCarousel();
+            });
+        });
+        heroMachineGallery.addEventListener('keydown', event => {
+            if (event.key === 'ArrowLeft') {
+                event.preventDefault();
+                showHeroMachine(heroMachineIndex - 1);
+                startHeroMachineCarousel();
+            } else if (event.key === 'ArrowRight') {
+                event.preventDefault();
+                showHeroMachine(heroMachineIndex + 1);
+                startHeroMachineCarousel();
+            }
+        });
+        window.addEventListener('resize', () => showHeroMachine(heroMachineIndex));
+        showHeroMachine(heroMachineIndex);
+        startHeroMachineCarousel();
+
+        const machineCarousel = document.getElementById('machine-carousel');
+        const machineSlides = Array.from(machineCarousel.querySelectorAll('.machine-carousel-slide'));
+        const machineIndicators = Array.from(machineCarousel.querySelectorAll('.machine-carousel-indicator'));
+        const featuredMachines = [
+            { title: 'LT956 CARGADORA DE RUEDAS', weight: 'Peso: 16.500 KG', engine: 'Cubo: 3,0 m³', detailLabel1: 'Altura Máx. Descarga:', detail1: '3.200 mm', detailLabel2: 'Fuerza Excavación:', detail2: '155 kN' },
+            { title: 'LTE230 EXCAVADORA', weight: 'Peso: 23.000 KG', engine: 'Motor: Cummins', detailLabel1: 'Capacidad Cubo:', detail1: '1,1 m³', detailLabel2: 'Velocidad Swing:', detail2: '11-13 RPM' },
+            { title: 'LT936 CARGADORA DE RUEDAS', weight: 'Peso: 9.850 KG', engine: 'Cubo: 1,8 m³', detailLabel1: 'Carga Nominal:', detail1: '3.000 KG', detailLabel2: 'Motorización:', detail2: 'Weichai' },
+            { title: 'BLT388 RETROEXCAVADORA', weight: 'Peso: 8.200 KG', engine: 'Carga: 2.500 KG', detailLabel1: 'Cuchara Frontal:', detail1: '1,0 m³', detailLabel2: 'Cuchara Retro:', detail2: '0,3 m³' },
+            { title: 'LTR100 MONTACARGAS TODOTERRENO', weight: 'Carga: 10.000 KG', engine: 'Diésel', detailLabel1: 'Altura Elevación:', detail1: '4.000 - 7.000 mm', detailLabel2: 'Centro de Carga:', detail2: '500 mm' },
+            { title: 'FD38 CARRETILLA ELEVADORA', weight: 'Peso: 4.900 KG', engine: 'Carga: 3.800 KG', detailLabel1: 'Altura Elevación:', detail1: '3.000 mm', detailLabel2: 'Radio de Giro:', detail2: '2.570 mm' }
+        ];
+        let currentMachineIndex = 0;
+        let machineCarouselTimer;
+
+        function showMachineSlide(index) {
+            currentMachineIndex = (index + machineSlides.length) % machineSlides.length;
+            machineSlides.forEach((slide, slideIndex) => {
+                const isActive = slideIndex === currentMachineIndex;
+                slide.classList.toggle('opacity-100', isActive);
+                slide.classList.toggle('scale-100', isActive);
+                slide.classList.toggle('z-10', isActive);
+                slide.classList.toggle('opacity-0', !isActive);
+                slide.classList.toggle('scale-105', !isActive);
+                slide.setAttribute('aria-hidden', String(!isActive));
+            });
+            machineIndicators.forEach((indicator, indicatorIndex) => {
+                const isActive = indicatorIndex === currentMachineIndex;
+                indicator.classList.toggle('bg-white', isActive);
+                indicator.classList.toggle('bg-white/50', !isActive);
+                indicator.setAttribute('aria-current', String(isActive));
+            });
+
+            const machine = featuredMachines[currentMachineIndex];
+            document.getElementById('featured-machine-title').textContent = machine.title;
+            document.getElementById('featured-machine-weight').textContent = machine.weight;
+            document.getElementById('featured-machine-engine').textContent = machine.engine;
+            document.getElementById('featured-machine-detail-label-1').textContent = machine.detailLabel1;
+            document.getElementById('featured-machine-detail-1').textContent = machine.detail1;
+            document.getElementById('featured-machine-detail-label-2').textContent = machine.detailLabel2;
+            document.getElementById('featured-machine-detail-2').textContent = machine.detail2;
+        }
+
+        function startMachineCarousel() {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            window.clearInterval(machineCarouselTimer);
+            machineCarouselTimer = window.setInterval(() => {
+                if (!document.hidden && !machineCarousel.matches(':hover') && !machineCarousel.contains(document.activeElement)) {
+                    showMachineSlide(currentMachineIndex + 1);
+                }
+            }, 5000);
+        }
+
+        machineCarousel.querySelectorAll('.machine-carousel-control').forEach((button, buttonIndex) => {
+            button.addEventListener('click', () => {
+                showMachineSlide(currentMachineIndex + (buttonIndex === 0 ? -1 : 1));
+                startMachineCarousel();
+            });
+        });
+        machineIndicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                showMachineSlide(index);
+                startMachineCarousel();
+            });
+        });
+        showMachineSlide(currentMachineIndex);
+        startMachineCarousel();
+
+        // Full SVG logo template for spec modal injection
+        const brandLogoSvg = `
+            <div class="flex h-16 w-20 shrink-0 items-center justify-center rounded-lg border border-brand-border bg-brand-dark p-1">
+                <img src="TRACTOPOWERSVG/TRACTOPOWER%20LOGO%202.svg" alt="Tracto Power" class="h-full w-full object-contain" decoding="async">
+            </div>
+        `;
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Filter Catalog Cards
+        function filterCatalog(category) {
+            const cards = document.querySelectorAll('.catalog-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => {
+                if (btn.getAttribute('data-category') === category) {
+                    btn.classList.add('bg-brand-orange', 'text-white');
+                    btn.classList.remove('bg-brand-card', 'text-gray-300');
+                } else {
+                    btn.classList.remove('bg-brand-orange', 'text-white');
+                    btn.classList.add('bg-brand-card', 'text-gray-300');
+                }
+            });
+
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Full Machine Specification Modal Data
+        const specsData = {
+            'LT956': {
+                title: 'CARGADORA DE RUEDAS - LT956',
+                subtitle: 'Modelo LT956 - Payloader Pesado',
+                specs: [
+                    { label: 'Capacidad del Cubo', val: '3.0 m³' },
+                    { label: 'Capacidad Nominal', val: '5.000 kg' },
+                    { label: 'Altura Máxima de Descarga', val: '3.200 mm' },
+                    { label: 'Peso Operativo', val: '16.500 kg' },
+                    { label: 'Distancia Máxima de Descarga', val: '1.130 mm' },
+                    { label: 'Fuerza Máxima de Excavación', val: '155 kN' },
+                    { label: 'Longitud Total', val: '7.530 mm' }
+                ],
+                desc: 'Motor de alta velocidad y alta resistencia con alto par y aumento de potencia más rápido. Cabina panorámica espaciosa y luminosa con excelente visibilidad frontal y trasera.'
+            },
+            'LTE230': {
+                title: 'EXCAVADORA DE ORUGAS - LTE230',
+                subtitle: 'Modelo LTE230 - 23 Toneladas',
+                specs: [
+                    { label: 'Peso de Funcionamiento', val: '23.000 kg' },
+                    { label: 'Modelo del Motor', val: 'Cummins' },
+                    { label: 'Potencia Nominal', val: '124 KW / 2050 RPM' },
+                    { label: 'Capacidad del Cubo', val: '1.1 m³' },
+                    { label: 'Velocidad de Swing', val: '11 - 13 RPM' },
+                    { label: 'Velocidad de Viaje', val: '3,8 - 4,2 km/h' },
+                    { label: 'Gradiabilidad', val: '30°' }
+                ],
+                desc: 'Equipada con doble filtro de combustible para garantizar la pureza del motor. Cabina ergonómica de vista ancha e instalaciones hidráulicas extendidas para múltiples accesorios.'
+            },
+            'LT936': {
+                title: 'CARGADORA DE RUEDAS - LT936',
+                subtitle: 'Modelo LT936 - Payloader Mediano',
+                specs: [
+                    { label: 'Capacidad de Cuchara', val: '1.8 m³' },
+                    { label: 'Carga Nominal', val: '3.000 kg' },
+                    { label: 'Dimensiones Totales', val: '7630 * 2520 * 3200 mm' },
+                    { label: 'Peso Operativo', val: '9.850 kg' },
+                    { label: 'Altura Máx. Descarga', val: '3.300 mm' },
+                    { label: 'Motorización', val: 'Weichai' }
+                ],
+                desc: 'Sistema de fusión de bomba dual con maniobra piloto fácil e intuitiva. Cabina con un 20% más de espacio y volante multifunción.'
+            },
+            'BLT388': {
+                title: 'RETROEXCAVADORA - BLT388',
+                subtitle: 'Modelo BLT388 Jumbo',
+                specs: [
+                    { label: 'Peso Operativo', val: '8.200 kg' },
+                    { label: 'Capacidad Frontal', val: '1.0 m³' },
+                    { label: 'Capacidad Retroexcavadora', val: '0.3 m³' },
+                    { label: 'Carga Nominal', val: '2.500 kg' },
+                    { label: 'Despeje al Suelo', val: '300 mm' }
+                ],
+                desc: 'Motor sobrealimentado de marca reconocida con alta eficiencia energética. Neumáticos todoterreno con eje trasero oscilante para terrenos de máxima dificultad.'
+            },
+            'LTR100': {
+                title: 'MONTACARGAS TERRENO DIFÍCIL - LTR100',
+                subtitle: 'Modelo LTR100 Off-Road',
+                specs: [
+                    { label: 'Carga Nominal', val: '10.000 kg' },
+                    { label: 'Centro de Carga', val: '500 mm' },
+                    { label: 'Altura Elevación', val: '4.000 - 7.000 mm' },
+                    { label: 'Tipo de Energía', val: 'Diésel High Torque' }
+                ],
+                desc: 'Diseñado con neumáticos todoterreno ultra-anchos para excelente tracción en lodo y terrenos irregulares. Asiento con apoyabrazos y cinturón de seguridad.'
+            },
+            'FD38': {
+                title: 'CARRETILLA ELEVADORA - FD38',
+                subtitle: 'Modelo FD38 Diésel',
+                specs: [
+                    { label: 'Carga Nominal', val: '3.800 kg' },
+                    { label: 'Altura de Elevación', val: '3.000 mm' },
+                    { label: 'Radio de Giro', val: '2.570 mm' },
+                    { label: 'Peso de Servicio', val: '4.900 kg' }
+                ],
+                desc: 'Sistema hidráulico sensible a la carga que optimiza el consumo de combustible. Frenos de vacío de alto rendimiento y canal de aire independiente.'
+            }
+        };
+
+        function openSpecModal(modelKey) {
+            const data = specsData[modelKey];
+            if (!data) return;
+
+            const modal = document.getElementById('spec-modal');
+            const content = document.getElementById('modal-content');
+
+            let specsHtml = data.specs.map(s => `
+                <div class="flex justify-between py-2 border-b border-brand-border/40 font-mono text-xs">
+                    <span class="text-brand-lightText">${s.label}:</span>
+                    <span class="text-white font-bold">${s.val}</span>
+                </div>
+            `).join('');
+
+            content.innerHTML = `
+                <div class="flex items-center gap-3 mb-4">
+                    ${brandLogoSvg}
+                    <div>
+                        <span class="text-brand-orange font-mono text-xs uppercase tracking-widest block">${data.subtitle}</span>
+                        <h3 class="font-tech text-2xl font-bold uppercase text-white">${data.title}</h3>
+                    </div>
+                </div>
+                <p class="text-brand-lightText text-xs mb-6">${data.desc}</p>
+                <div class="bg-brand-dark p-4 rounded-xl border border-brand-border/60 mb-6 space-y-1">
+                    ${specsHtml}
+                </div>
+                <button onclick="closeSpecModal(); document.getElementById('cotizar').scrollIntoView();" class="w-full bg-brand-orange hover:bg-orange-600 text-white py-3 rounded-xl font-tech font-bold uppercase text-xs">
+                    Solicitar Cotización de este Equipo
+                </button>
+            `;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeSpecModal() {
+            const modal = document.getElementById('spec-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Live Estimator Logic
+        function handleCalc(e) {
+            e.preventDefault();
+            const model = document.getElementById('calc-model').value;
+            const qty = parseInt(document.getElementById('calc-qty').value) || 1;
+            
+            const capacities = {
+                'LT956': 5000,
+                'LTE230': 23000,
+                'LT936': 3000,
+                'BLT388': 2500,
+                'LTR100': 10000,
+                'FD38': 3800
+            };
+
+            const totalKg = (capacities[model] || 3000) * qty;
+            document.getElementById('calc-capacity').innerText = `${totalKg.toLocaleString()} KG Capacidad Combinada`;
+            
+            alert(`Solicitud preliminar procesada para ${qty} unidad(es) del modelo ${model}. Redirigiendo al formulario de contacto.`);
+            document.getElementById('cotizar').scrollIntoView();
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            alert('¡Gracias por comunicarte con Tracto Power! Un asesor de maquinaria pesada se ponerá en contacto contigo a la brevedad.');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
